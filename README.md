@@ -21,3 +21,4 @@
 * Buka Visual Studio Code kemudian install ektensi untuk Python dan Jupyter Notebook.
 * Setelah instalasi ekstensi selesai, buat file dengan format ipynb. Contoh : `example.ipynb`.
 ## 4. Konfigurasi Environment Streamlit
+* pip freeze > requirements.txt
