@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -29,27 +30,6 @@ st.pyplot(fig)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # df_forecasting = pd.read_csv("predicted_vs_actual.csv")
 
 # # Set index ke kolom "Year"
@@ -73,4 +53,3 @@ st.pyplot(fig)
 
 # # Tampilkan tabel
 # st.subheader("Data PM2.5")
-# st.table(df_forecasting)

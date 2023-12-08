@@ -21,7 +21,7 @@ with col1:
     st.image(legenda,width=585)
 
 with col2:
-    st.subheader("Cluster 1 ")
+    st.subheader("Cluster 1")
     st.markdown("""
                 Wilayah yang termasuk Cluster 1 ialah yang memiliki Ruang Terbuka Hijau paling rendah. Yaitu di rentang 0,02 - 0,83 m.
                 

@@ -84,4 +84,3 @@ st.table({
 # plt.xlabel('Tahun')
 # plt.ylabel('Rata-rata % RTH (b/a)')
 # plt.title('Grafik Rata-rata RTH per tahun di Jakarta')
-# st.pyplot()
