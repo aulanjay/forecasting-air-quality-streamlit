@@ -7,7 +7,8 @@ from PIL import Image
 from pathlib import Path
 
 st.set_page_config(layout="wide",
-                   page_icon=":loudspeaker:")
+                   page_icon=":loudspeaker:",
+                   page_title="Perkenalan PM2.5")
 tab1, tab2, tab3= st.tabs(["PM2.5 Emission In Jakarta", "Statistik Deskriptif", "Informasi Tingkat PM2.5"])
 
 

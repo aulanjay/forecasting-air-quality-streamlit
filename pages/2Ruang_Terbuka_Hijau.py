@@ -6,7 +6,8 @@ import streamlit as st
 
 st.set_page_config(
     layout="wide",
-    page_icon=":deciduous_tree:")
+    page_icon=":deciduous_tree:",
+    page_title="Ruang Terbuka Hijau")
 st.markdown("<h1 style='text-align: center; color: green;'>RUANG TERBUKA HIJAU</h1>", unsafe_allow_html=True)
 st.write("#### Menurut Undang-Undang No. 26 tahun 2007 tentang Penataan Ruang, pengertian ruang terbuka hijau (RTH) adalah area memanjang / jalur dan / atau mengelompok, yang penggunaannya lebih bersifat terbuka, tempat tumbuh tanaman, baik yang tumbuh alamiah maupun sengaja ditanam.")
 

@@ -3,9 +3,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 st.set_page_config(layout="wide",
-                   page_icon=":chart_with_upwards_trend:")
+                   page_icon=":chart_with_upwards_trend:",
+                   page_title="Forecasting 10 Tahun Ke Depan")
 st.title("FORECASTING PM 2.5")
 st.header("Prediksi PM 2.5 Pertahun")
 
@@ -27,6 +29,12 @@ plt.ylabel("Value")
 plt.title("Actual, Forecasting, Min, and Max Over Years")
 plt.legend()
 st.pyplot(fig)
+
+with st.expander("Lihat Penjelasan Selengkapnya"):
+    def read_markdown_file(markdown_forecast):
+        return Path(markdown_forecast).read_text()
+    forecast = read_markdown_file("markdown/forecast.md")
+    st.markdown(forecast, unsafe_allow_html=True)
 
 
 

@@ -4,7 +4,8 @@ from PIL import Image
 from pathlib import Path
 
 st.set_page_config(layout="wide",
-                   page_icon=":earth_asia:")
+                   page_icon=":earth_asia:",
+                   page_title="Kluster PM2.5 DKI Jakarta")
 
 st.markdown("<h1 style='text-align: center;'>ANALISIS KLUSTER LUASAN WILAYAH RTH DKI JAKARTA TAHUN 2022</h1>", unsafe_allow_html=True)
 

@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 st.set_page_config(layout="wide",
-                   page_icon=":hotsprings:")
+                   page_icon=":hotsprings:",
+                   page_title="Korelasi PM2.5 dan RTH")
 st.markdown("<h1 style='text-align: center;'>HUBUNGAN ANTARA RUANG TERBUKA HIJAU DENGAN PM2.5</h1>", unsafe_allow_html=True)
 tab1, tab2 = st.tabs(["Korelasi", "Heatmap"])
 
