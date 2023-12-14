@@ -16,7 +16,7 @@ tab1, tab2, tab3= st.tabs(["PM2.5 Emission In Jakarta", "Statistik Deskriptif", 
 with tab1:
     st.title("PM2.5 AIR POLUTION")
 
-    st.header("SOURCE")
+    st.header("PEMBAHASAN")
     st.markdown("Particulate Matter (PM2.5) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5µm (mikrometer). Dari semua tindakan polusi udara, PM2.5 merupakan ancaman kesehatan terbesar. Karena ukurannya yang kecil, PM2.5 dapat tetap melayang di udara untuk waktu yang lama dan dapat diserap jauh ke dalam aliran darah saat terhirup.")
 
     st.header("PM2.5 EMISSION IN JAKARTA")
@@ -62,8 +62,8 @@ with tab2:
         st.markdown("""
         <div style="text-align: left;">
                     <h3>Statistika Deskriptif</h3>
-                    <p>Statisika Deskriptif meliputi nilai rata-rata (mean), median, modus, deviasi standar, kuartil, rentang, dan sebagainya. Statistik ini membantu memberikan gambaran umum tentang distribusi data. Kali ini akan dianalisis mengenai variabel pm2.5 dan pm10 yang digunakan.</p>
-                    <p>Exploratory Data Analysis. Ini adalah proses dalam analisis data yang bertujuan untuk menjelajahi dan memahami struktur, pola, serta karakteristik dari data yang tersedia. Data yang digunakan meliputi variabel Particulate Matter. Particulate Matter (PM) adalah partikel udara. Variabel yang terdapat pada data yaitu PM2.5 dan PM10. Particulate Matter (PM2.5 dan PM10) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5 dan 10 µm (mikrometer). Dari semua tindakan polusi udara, PM2.5 merupakan ancaman kesehatan terbesar. 1 Karena ukurannya yang kecil, PM2.5 dapat tetap melayang di udara untuk waktu yang lama dan dapat diserap jauh ke dalam aliran darah saat terhirup.</p>
+                    <p style="text-align:justify;">Statisika Deskriptif meliputi nilai rata-rata (mean), median, modus, deviasi standar, kuartil, rentang, dan sebagainya. Statistik ini membantu memberikan gambaran umum tentang distribusi data. Kali ini akan dianalisis mengenai variabel pm2.5 dan pm10 yang digunakan.</p>
+                    <p style="text-align:justify;">Exploratory Data Analysis. Ini adalah proses dalam analisis data yang bertujuan untuk menjelajahi dan memahami struktur, pola, serta karakteristik dari data yang tersedia. Data yang digunakan meliputi variabel Particulate Matter. Particulate Matter (PM) adalah partikel udara. Variabel yang terdapat pada data yaitu PM2.5 dan PM10. Particulate Matter (PM2.5 dan PM10) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5 dan 10 µm (mikrometer). Dari semua tindakan polusi udara, PM2.5 merupakan ancaman kesehatan terbesar. 1 Karena ukurannya yang kecil, PM2.5 dapat tetap melayang di udara untuk waktu yang lama dan dapat diserap jauh ke dalam aliran darah saat terhirup.</p>
                     <p>Beberapa sumber PM2.5 buatan manusia yang paling umum: </p>
                     <ul>
                     <li>Pembakaran motor</li>
@@ -106,4 +106,4 @@ with tab3:
         st.markdown(intro_markdown, unsafe_allow_html=True)
 
     image = Image.open('image/pm25.jpeg')
-    st.image(image) 
+    st.image(image)     
