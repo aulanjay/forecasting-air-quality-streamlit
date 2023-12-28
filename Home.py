@@ -88,7 +88,7 @@ if authentication_status == True :
             
             
             # ----------------- Path untuk file CSV & CRUD
-            file_dir = r'd:\streamlit\login\dataset'
+            file_dir = r'd:\streamlit\kp\dataset'
             file_name = 'Mean_PM25 pertahun.csv'
             file_path = f"{file_dir}/{file_name}"
 
