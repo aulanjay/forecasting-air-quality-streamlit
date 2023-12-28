@@ -88,7 +88,7 @@ if authentication_status == True :
             
             
             # ----------------- Path untuk file CSV & CRUD
-            file_dir = r'd:\streamlit\kp\dataset'
+            file_dir = r'dataset/'
             file_name = 'test_pm25.csv'
             file_path = f"{file_dir}/{file_name}"
 
