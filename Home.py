@@ -109,6 +109,7 @@ if authentication_status == True :
                 plt.xlabel(xlabel)
                 plt.ylabel(ylabel)
                 plt.legend()
+                st.set_option('deprecation.showPyplotGlobalUse', False)
                 st.pyplot()
 
             # Fungsi untuk menambahkan data
