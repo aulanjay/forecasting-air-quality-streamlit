@@ -24,12 +24,14 @@ file_path = Path(__file__).parent / "hashed_pw.pkl"
 with file_path.open("rb") as file:
     hashed_passwords = pickle.load(file)
 
+# Mengatur Autentikasi dengan cookie
 authenticator = stauth.Authenticate(
     names, usernames, hashed_passwords, "home", "1111", cookie_expiry_days=30
-    )
+    ) # User dapat masuk ke halaman web dengan cookie dengan batas waktu 30 hari
 
 name, authentication_status, username = authenticator.login("Login", "main")
 
+# Kondisi saat User hendak login
 if authentication_status == False:
     st.error("Username atau Password Salah")
     
@@ -81,25 +83,137 @@ if authentication_status == True :
 
             # Membaca Dataset
             df = pd.read_csv('dataset/Mean_PM25 pertahun.csv')
+            
+            
+            
+            
+            # ----------------- Path untuk file CSV & CRUD
+            file_dir = r'd:\streamlit\login\dataset'
+            file_name = 'Mean_PM25 pertahun.csv'
+            file_path = f"{file_dir}/{file_name}"
 
-            # Tambahkan checkbox untuk setiap tahun
-            selected_years = st.multiselect('Pilih Tahun', df['year'].unique())
+            # Fungsi untuk membaca dan menulis data
+            def read_data():
+                return pd.read_csv(file_path)
 
-            # Filter dataset berdasarkan tahun yang dipilih
-            filtered_data = df[df['year'].isin(selected_years)]
+            def write_data(df):
+                df.to_csv(file_path, index=False)
 
-            # Tampilkan grafik PM2.5 per tahun berdasarkan checkbox
-            if not filtered_data.empty:
-                st.write('### Grafik PM2.5 per Tahun')
+            # Fungsi untuk menambahkan grafik line chart
+            def line_chart(data, x_column, y_columns, title, xlabel, ylabel):
                 plt.figure(figsize=(10, 6))
-                sns.lineplot(x='year', y='pm25', data=filtered_data, marker='o')
-                plt.xlabel('Tahun')
-                plt.ylabel('PM2.5')
-                plt.title('Grafik PM2.5 per Tahun')
+                for y_column in y_columns:
+                    sns.lineplot(x=x_column, y=y_column, data=data, label=y_column, marker='o')
+
+                plt.title(title)
+                plt.xlabel(xlabel)
+                plt.ylabel(ylabel)
+                plt.legend()
                 st.pyplot()
-            else:
-                st.warning('Data untuk tahun yang dipilih tidak tersedia.')
-                st.set_option('deprecation.showPyplotGlobalUse', False)
+
+            # Fungsi untuk menambahkan data
+            def add_data(df, new_year, new_pm25):
+                new_data = {'year': new_year, 'pm25': new_pm25}
+                df = df._append(new_data, ignore_index=True)
+                write_data(df)
+                st.success("Data berhasil ditambahkan!")
+                return df
+
+            # Fungsi untuk mengedit data
+            def edit_data(df, selected_index, new_year, new_pm25):
+                df.at[selected_index, 'year'] = int(new_year)
+                df.at[selected_index, 'pm25'] = new_pm25
+                write_data(df)
+                st.success("Data berhasil diubah!")
+
+            # Fungsi untuk menghapus data
+            def delete_data(df, selected_index):
+                df = df.drop(index=selected_index)
+                write_data(df)
+                st.success("Data berhasil dihapus!")
+                return df
+            
+            # Halaman utama
+            def main():
+                df1 = read_data()
+
+                # Pilihan aksi dalam selectbox
+                action = st.sidebar.selectbox("Pilih Aksi", ["Tambah Data", "Edit Data", "Hapus Data"])
+
+                # Tambah Data
+                if action == "Tambah Data":
+                    st.sidebar.header("Tambah Data Baru")
+                    with st.sidebar.form(key='add_form'):
+                        new_year = st.number_input('year', min_value=0.00)
+                        new_pm25 = st.number_input('pm25', min_value=0.00)
+                        submit_add = st.form_submit_button('Tambahkan Data')
+
+                        if submit_add:
+                            df1 = add_data(df1, new_year, new_pm25)
+
+                # Edit Data
+                elif action == "Edit Data":
+                    st.sidebar.header("Edit Data")
+
+                    selected_index_edit = st.sidebar.text_input("Nomor Baris yang Akan Diedit:")
+                    selected_index_edit = int(selected_index_edit) if selected_index_edit.isdigit() else None
+
+                    if selected_index_edit is not None and 0 <= selected_index_edit < len(df1):
+                        selected_data_edit = df1.iloc[selected_index_edit]
+                        
+                        with st.sidebar.form(key='edit_form'):
+                            new_year_edit = st.number_input('Masukan Tahun Baru:', value=selected_data_edit['year'])
+                            new_pm25_edit = st.number_input('Masukan PM2.5 Baru:', value=selected_data_edit['pm25'])
+                            submit_edit = st.form_submit_button('Edit Data')
+
+                            if submit_edit:
+                                edit_data(df1, selected_index_edit, new_year_edit, new_pm25_edit)
+                    else:
+                        st.warning("Nomor baris tidak valid. Harap masukkan nomor baris yang benar.")
+
+                # Hapus Data
+                elif action == "Hapus Data":
+                    st.sidebar.header("Hapus Data")
+                    with st.sidebar.form(key='delete_form'):
+                        selected_index_delete = st.number_input('Pilih Nomor Baris Yang Akan Dihapus:', min_value=0, max_value=len(df1)-1, value=0)
+                        # selected_data_delete = df1.iloc[selected_index_delete]
+                        # st.write(f"Data Yang Dipilih: {selected_data_delete}")
+                        submit_delete = st.form_submit_button('Hapus Data')
+
+                        if submit_delete:
+                            df1 = delete_data(df1, selected_index_delete)
+
+                # Menampilkan grafik line chart
+                st.write("### Dataset Polusi Udara DKI Jakarta")
+                st.checkbox("Use container width", value=False, key="use_container_width")
+                st.dataframe(df1, use_container_width=st.session_state.use_container_width)
+                line_chart(df1, 'year', ['pm25'], 'Line Chart', 'Year', 'PM2.5')
+
+            # Menjalankan aplikasi
+            if __name__ == '__main__':
+                main()
+                
+                
+                
+                
+            # # Tambahkan checkbox untuk setiap tahun
+            # selected_years = st.multiselect('Pilih Tahun', df['year'].unique())
+
+            # # Filter dataset berdasarkan tahun yang dipilih
+            # filtered_data = df[df['year'].isin(selected_years)]
+
+            # # Tampilkan grafik PM2.5 per tahun berdasarkan checkbox
+            # if not filtered_data.empty:
+            #     st.write('### Grafik PM2.5 per Tahun')
+            #     plt.figure(figsize=(10, 6))
+            #     sns.lineplot(x='year', y='pm25', data=filtered_data, marker='o')
+            #     plt.xlabel('Tahun')
+            #     plt.ylabel('PM2.5')
+            #     plt.title('Grafik PM2.5 per Tahun')
+            #     st.pyplot()
+            # else:
+            #     st.warning('Data untuk tahun yang dipilih tidak tersedia.')
+            #     st.set_option('deprecation.showPyplotGlobalUse', False)
 
         # Tab 2
         # Menghitung Nilai PM2.5
