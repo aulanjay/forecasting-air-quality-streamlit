@@ -82,8 +82,7 @@ if authentication_status == True :
             st.header("PM2.5 EMISSION IN JAKARTA")
 
             # Membaca Dataset
-            df = pd.read_csv('dataset/Mean_PM25 pertahun.csv')
-            
+            df = pd.read_csv('dataset/test_pm25.csv')
             
             
             
@@ -131,9 +130,8 @@ if authentication_status == True :
             def delete_data(df, selected_index):
                 df = df.drop(index=selected_index)
                 write_data(df)
-                st.success("Data berhasil dihapus!")
                 return df
-            
+        
             # Halaman utama
             def main():
                 df1 = read_data()
@@ -176,13 +174,12 @@ if authentication_status == True :
                 elif action == "Hapus Data":
                     st.sidebar.header("Hapus Data")
                     with st.sidebar.form(key='delete_form'):
-                        selected_index_delete = st.number_input('Pilih Nomor Baris Yang Akan Dihapus:', min_value=0, max_value=len(df1)-1, value=0)
-                        # selected_data_delete = df1.iloc[selected_index_delete]
-                        # st.write(f"Data Yang Dipilih: {selected_data_delete}")
+                        selected_index_delete = st.selectbox('Pilih Nomor Baris Yang Akan Dihapus:', options=list(range(len(df1))), index=0)
                         submit_delete = st.form_submit_button('Hapus Data')
 
                         if submit_delete:
                             df1 = delete_data(df1, selected_index_delete)
+                            st.success("Data berhasil dihapus!")
 
                 # Menampilkan grafik line chart
                 st.write("### Dataset Polusi Udara DKI Jakarta")
